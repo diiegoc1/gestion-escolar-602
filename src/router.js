@@ -11,6 +11,7 @@ import { renderTomarAsistencia } from './views/docente/tomar-asistencia.js'
 import { renderMisNotas } from './views/alumno/mis-notas.js'
 import { renderMiAsistencia } from './views/alumno/mi-asistencia.js'
 import { canAccess } from './guards/roleGuard.js'
+import { restoreSession } from './services/auth.service.js'
 
 const routes = {
   '#/login': { render: renderLogin, roles: null },
@@ -45,6 +46,7 @@ export function navigate(hash) {
 
 export function initRouter(app) {
   async function render() {
+    await restoreSession().catch(() => false)
     const hash = window.location.hash || '#/login'
     const route = routes[hash]
 

@@ -74,11 +74,14 @@ docs/der.png                # PENDIENTE (binario, agregar manual)
 - `eventos(id, titulo, tipo acto/examen/feriado/institucional, fecha_inicio, fecha_fin, curso_id NULL FK cursos)` ← no se llama `calendario`, orden por `fecha_inicio`
 - `previas(id, alumno_id! FK alumnos, materia_curso_id! FK materias_curso, detalle)`
 
-## 5. Auth simple DEMO
+## 5. Auth producción (opción A): Supabase Auth + auth_id
 
-- `loginSimple(email, password)` en `usuarios.service.js`: `select * from usuarios where email`, compara `password_hash === password` en claro (solo demo).
-- Seed usa claves en claro: `directivo@eetp602.edu.ar/directivo123`, `docente@eetp602.edu.ar/docente123`, `alumno@eetp602.edu.ar/alumno123`.
-- Para producción: migrar a Supabase Auth + columna `usuarios.auth_id uuid` + RLS real.
+- `usuarios` tiene `auth_id uuid unique -> auth.users(id)` (ver `supabase/migration_auth_id.sql`).
+- `signIn(email, password)`: `supabase.auth.signInWithPassword` → busca fila por `auth_id`, si está nula la vincula por email (migración) → guarda `rol/usuario_id/auth_id/email` en `localStorage`.
+- `restoreSession()` en `router.js` restaura el rol si hay sesión Auth pero se perdió `localStorage`.
+- `loginSimple` queda solo como fallback DEMO local (compara `password_hash` en claro). No usar en producción.
+- RLS real en `migration_auth_id.sql`: helper `es_directivo()`, lectura para `authenticated`, escritura directivo total + docente en `calificaciones/asistencias`, `anon` sin acceso.
+- Usuarios legacy con `password_hash` manual: crearles cuenta en Authentication con el mismo email y al primer login se auto-vinculan (o pedir reset).
 
 ## 6. Convenciones y errores ya corregidos
 

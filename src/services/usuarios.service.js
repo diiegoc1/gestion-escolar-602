@@ -1,21 +1,26 @@
 import { supabase } from '../lib/supabase.js'
 
-// Tabla real: usuarios(id, email, password_hash, rol DIRECTIVO/DOCENTE/ALUMNO)
-// Login simple DEMO: compara password en claro contra password_hash.
-// Para producción usar Supabase Auth + columna auth_id.
+// Tabla: usuarios(id, email, password_hash, rol, auth_id uuid -> auth.users)
+// password_hash queda legacy (demo). Producción usa Supabase Auth + auth_id.
 export async function getUsuarioByEmail(email) {
-  return supabase.from('usuarios').select('*').eq('email', email).single()
+  return supabase.from('usuarios').select('*').eq('email', (email || '').trim()).maybeSingle()
 }
 
+export async function getMiUsuario() {
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { data: null, error: new Error('Sin sesión') }
+  return supabase.from('usuarios').select('*').eq('auth_id', user.id).maybeSingle()
+}
+
+// DEMO legacy (sin Auth): solo desarrollo local. No usar en producción.
 export async function loginSimple(email, password) {
   const { data, error } = await supabase
     .from('usuarios')
     .select('*')
-    .eq('email', email)
-    .single()
+    .eq('email', (email || '').trim())
+    .maybeSingle()
 
   if (error || !data) return { data: null, error: error || new Error('Usuario no encontrado') }
-  // DEMO simple: password_hash guarda la clave en claro en seed de prueba
   if (data.password_hash !== password) return { data: null, error: new Error('Contraseña incorrecta') }
 
   localStorage.setItem('rol', data.rol)
@@ -27,6 +32,7 @@ export async function loginSimple(email, password) {
 export function logoutSimple() {
   localStorage.removeItem('rol')
   localStorage.removeItem('usuario_id')
+  localStorage.removeItem('auth_id')
   localStorage.removeItem('email')
 }
 
