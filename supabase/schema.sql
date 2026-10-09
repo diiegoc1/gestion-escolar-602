@@ -1,0 +1,16 @@
+﻿-- Esquema real EETP 602 (referencia, coincide con BD existente).
+-- Tablas: usuarios, cursos, materias, alumnos, docentes, materias_curso,
+-- calificaciones, asistencias, eventos, previas.
+
+-- Ver DDL completo en el dump original del proyecto.
+-- Columnas clave:
+-- usuarios(id, email UNIQUE, password_hash, rol DIRECTIVO/DOCENTE/ALUMNO)
+-- cursos(id, anio 1-6, division, turno Mañana/Tarde/Noche, ciclo_lectivo)
+-- materias(id, nombre, anio 1-6)
+-- alumnos(id, usuario_id UNIQUE FK usuarios, curso_id FK cursos, dni UNIQUE, apellido, nombre, fecha_nac, tutor, telefono_tutor, activo DEFAULT true)
+-- docentes(id, usuario_id UNIQUE FK usuarios, dni UNIQUE, apellido, nombre, email, telefono)
+-- materias_curso(id, curso_id! FK cursos, materia_id! FK materias, docente_id FK docentes)
+-- calificaciones(id, alumno_id! FK alumnos, materia_curso_id! FK materias_curso, trimestre 1-3, nota 1-10)
+-- asistencias(id, alumno_id! FK alumnos, fecha, estado P/A/T)
+-- eventos(id, titulo, tipo acto/examen/feriado/institucional, fecha_inicio, fecha_fin, curso_id FK cursos NULL)
+-- previas(id, alumno_id! FK alumnos, materia_curso_id! FK materias_curso, detalle)

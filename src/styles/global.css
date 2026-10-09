@@ -1,0 +1,13 @@
+﻿body {
+  margin: 0;
+  font-family: system-ui;
+  background: var(--bg);
+}
+#app {
+  min-height: 100vh;
+}
+.login-container {
+  max-width: 400px;
+  margin: 10vh auto;
+  padding: 1rem;
+}
