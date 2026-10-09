@@ -43,7 +43,7 @@ src/views/docente/          # mis-materias, cargar-notas, tomar-asistencia
 src/views/alumno/           # mis-notas, mi-asistencia
 src/components/             # navbar, sidebar, tabla, formulario, modal (stubs)
 src/utils/helpers.js        # formatoFecha es-AR
-src/styles/                 # variables.css, global.css mobile-first, components.css
+src/styles/                 # variables.css, global.css mobile-first, components.css, disenio.css (diseño EETP: topbar/side/card/tbl/modal)
 supabase/schema.sql         # referencia de las 10 tablas (ver §4)
 supabase/policies.sql       # DEV permisivo, sin RLS real
 supabase/seed.sql           # 3 usuarios demo + 1 curso + 2 materias

@@ -11,7 +11,9 @@ import { renderTomarAsistencia } from './views/docente/tomar-asistencia.js'
 import { renderMisNotas } from './views/alumno/mis-notas.js'
 import { renderMiAsistencia } from './views/alumno/mi-asistencia.js'
 import { canAccess } from './guards/roleGuard.js'
-import { restoreSession } from './services/auth.service.js'
+import { restoreSession, signOut } from './services/auth.service.js'
+import { renderNavbar, menuParaRol } from './components/navbar.js'
+import { renderSidebar } from './components/sidebar.js'
 
 const routes = {
   '#/login': { render: renderLogin, roles: null },
@@ -67,7 +69,20 @@ export function initRouter(app) {
     }
 
     app.innerHTML = ''
-    await route.render(app)
+    if (hash === '#/login') {
+      document.body.classList.remove('con-shell')
+      await route.render(app)
+      return
+    }
+    // Cáscara del diseño para rutas autenticadas
+    document.body.classList.add('con-shell')
+    document.body.classList.remove('login-page')
+    const view = renderNavbar(app, {
+      email: localStorage.getItem('email'),
+      onLogout: async () => { await signOut(); navigate('#/login') },
+    })
+    renderSidebar(menuParaRol(getRole()), hash)
+    await route.render(view)
   }
 
   window.addEventListener('hashchange', render)
