@@ -1,7 +1,6 @@
 import { signIn } from '../services/auth.service.js'
 import { navigate } from '../router.js'
 import { $, esc } from '../utils/helpers.js'
-import { shield } from '../components/modal.js'
 
 function homePorRol(rol) {
   const r = (rol || '').toUpperCase()
@@ -15,6 +14,7 @@ export async function renderLogin(app) {
   document.body.classList.add('login-page')
   app.innerHTML = `
     <form class="login" id="f" novalidate>
+      <img src="/logo.jpg" class="logo-login" alt="EETP Nº 602">
       <h1 id="logo">EETP Nº 602</h1>
       <input id="email" type="email" placeholder="Email" autocomplete="username" aria-label="Email">
       <input id="password" type="password" placeholder="Contraseña" autocomplete="current-password" aria-label="Contraseña">
@@ -22,7 +22,6 @@ export async function renderLogin(app) {
       <button class="btn y">Ingresar</button>
     </form>
   `
-  $('#logo').insertAdjacentHTML('afterend', shield(70))
 
   $('#f').onsubmit = async (e) => {
     e.preventDefault()

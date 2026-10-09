@@ -1,6 +1,5 @@
 ﻿// Cáscara del diseño: topbar + sidebar. El router decide qué links mostrar por rol.
 import { $ } from '../utils/helpers.js'
-import { shield } from './modal.js'
 
 export const MENUS = {
   DIRECTIVO: [
@@ -28,7 +27,7 @@ export function menuParaRol(rol) {
 
 export function renderNavbar(app, { email, onLogout }) {
   const iniciales = (email || '??').slice(0, 2).toUpperCase()
-  app.innerHTML = `<header class="topbar"><button class="burger" id="burger" aria-label="Abrir menú">☰</button>${shield(24)}<span class="brand">EETP Nº 602</span><span class="sp"></span>
+  app.innerHTML = `<header class="topbar"><button class="burger" id="burger" aria-label="Abrir menú">☰</button><img src="/logo.jpg" class="logo-top" alt="EETP Nº 602"><span class="brand">EETP Nº 602</span><span class="sp"></span>
     <button class="avatar" id="out" title="Cerrar sesión (${email || ''})" aria-label="Cerrar sesión">${iniciales}</button></header>
     <div class="shell"><nav class="side" id="side"></nav><main class="main" id="view"></main></div>`
   $('#out').onclick = onLogout
