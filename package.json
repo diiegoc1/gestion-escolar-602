@@ -1,7 +1,7 @@
 {
   "name": "eetp602-gestion-escolar",
   "version": "1.0.0",
-  "description": "",
+  "description": "Sistema de gestión escolar con Vite (vanilla JS) + Supabase.",
   "main": "index.js",
   "directories": {
     "doc": "docs"
@@ -18,5 +18,13 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.117.3",
     "vite": "^8.3.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diiegoc1/gestion-escolar-602.git"
+  },
+  "bugs": {
+    "url": "https://github.com/diiegoc1/gestion-escolar-602/issues"
+  },
+  "homepage": "https://github.com/diiegoc1/gestion-escolar-602#readme"
 }

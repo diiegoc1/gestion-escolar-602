@@ -7,6 +7,7 @@ export const MENUS = {
     ['Alumnos', '#/directivo/alumnos'],
     ['Docentes', '#/directivo/docentes'],
     ['Cursos', '#/directivo/cursos'],
+    ['Materias', '#/directivo/materias'],
     ['Consultas', '#/directivo/consultas'],
     ['Calendario', '#/directivo/calendario'],
   ],

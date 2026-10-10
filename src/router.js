@@ -5,6 +5,7 @@ import { renderDocentes } from './views/directivo/docentes.js'
 import { renderCursos } from './views/directivo/cursos.js'
 import { renderConsultas } from './views/directivo/consultas.js'
 import { renderCalendario } from './views/directivo/calendario.js'
+import { renderMaterias } from './views/directivo/materias.js'
 import { renderMisMaterias } from './views/docente/mis-materias.js'
 import { renderCargarNotas } from './views/docente/cargar-notas.js'
 import { renderTomarAsistencia } from './views/docente/tomar-asistencia.js'
@@ -23,6 +24,7 @@ const routes = {
   '#/directivo/cursos': { render: renderCursos, roles: ['DIRECTIVO'] },
   '#/directivo/consultas': { render: renderConsultas, roles: ['DIRECTIVO'] },
   '#/directivo/calendario': { render: renderCalendario, roles: ['DIRECTIVO'] },
+  '#/directivo/materias': { render: renderMaterias, roles: ['DIRECTIVO'] },
   '#/docente/materias': { render: renderMisMaterias, roles: ['DOCENTE', 'DIRECTIVO'] },
   '#/docente/notas': { render: renderCargarNotas, roles: ['DOCENTE', 'DIRECTIVO'] },
   '#/docente/asistencia': { render: renderTomarAsistencia, roles: ['DOCENTE', 'DIRECTIVO'] },
